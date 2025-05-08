@@ -6,6 +6,7 @@ import { IRegister } from "@/types/Auth";
 import authServices from "@/services/auth.service";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
+// import { ToasterContext } from "@/contexts/ToasterContext";
 
 const registerSchema = yup.object().shape({
   fullName: yup.string().required("Please input your fullname"),
@@ -20,12 +21,13 @@ const registerSchema = yup.object().shape({
     .required("Please input your password"),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref("password"), ""], "Password not Match")
+    .oneOf([yup.ref("password"), ""], "Password not match")
     .required("Please input your password confirmation"),
 });
 
 const useRegister = () => {
-  const rooter = useRouter();
+  const router = useRouter();
+  // const { setToaster } = useContext(ToasterContext);
   const [visiblePassword, setVisiblePassword] = useState({
     password: false,
     confirmPassword: false,
@@ -49,7 +51,6 @@ const useRegister = () => {
   });
 
   const registerService = async (payload: IRegister) => {
-    console.log(payload, "<<<");
     const result = await authServices.register(payload);
     return result;
   };
@@ -57,20 +58,25 @@ const useRegister = () => {
   const { mutate: mutateRegister, isPending: isPendingRegister } = useMutation({
     mutationFn: registerService,
     onError: (error) => {
+      // setToaster({
+      //   type: "error",
+      //   message: error.message,
+      // });
       setError("root", {
         message: error.message,
       });
     },
     onSuccess: () => {
-      rooter.push("/auth/register/success");
       reset();
+      // setToaster({
+      //   type: "success",
+      //   message: "Register Success",
+      // });
+      router.push("/auth/register/success");
     },
   });
 
-  const handleRegister = (data: IRegister) => {
-    console.log(data, "ini data");
-    mutateRegister(data);
-  };
+  const handleRegister = (data: IRegister) => mutateRegister(data);
 
   return {
     visiblePassword,

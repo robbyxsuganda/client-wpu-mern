@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import cn from "@/utils/cn";
+import { cn } from "@/utils/cn";
 import { NextUIProvider } from "@nextui-org/react";
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
