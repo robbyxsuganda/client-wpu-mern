@@ -5,6 +5,7 @@ import { CiLogout } from "react-icons/ci";
 import { useRouter } from "next/router";
 import { cn } from "@/utils/cn";
 import { JSX } from "react";
+import Link from "next/link";
 
 interface SidebarItem {
   key: string;
@@ -57,6 +58,8 @@ const DashboardLayoutSidebar = (props: PropTypes) => {
                 textValue={item.label}
                 aria-label={item.label}
                 aria-describedby={item.label}
+                as={Link}
+                href={item.href}
               >
                 <p className="text-small">{item.label}</p>
               </ListboxItem>
