@@ -25,8 +25,6 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(url);
     }
 
-    console.log("token", token);
-
     if (token?.user?.role !== "admin") {
       return NextResponse.redirect(new URL("/", req.url));
     }
