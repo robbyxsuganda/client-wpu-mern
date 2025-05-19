@@ -99,6 +99,7 @@ const useCategory = () => {
     handleChangePage,
     handleSearch,
     handleClearSearch,
+    refetchCategory,
     isLoadingCategory,
     isRefetchingCategory,
   };
