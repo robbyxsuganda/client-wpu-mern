@@ -26,13 +26,16 @@ const AddCategoryModal = (props: PropTypes) => {
   const {
     control,
     errors,
-    reset,
     handleSubmitForm,
     handleAddCategory,
-
     isPendingMutateAddCategory,
     isSuccessMutateAddCategory,
-    isSuccessMutateAddFile,
+    preview,
+    handleUploadIcon,
+    handleDeleteIcon,
+    handleOnClose,
+    isPendingMutateUploadFile,
+    isPendingMutateDeleteFile,
   } = useAddCategoryModal();
 
   useEffect(() => {
@@ -42,9 +45,15 @@ const AddCategoryModal = (props: PropTypes) => {
     }
   }, [isSuccessMutateAddCategory]);
 
+  const disabledSubmit =
+    isPendingMutateAddCategory ||
+    isPendingMutateUploadFile ||
+    isPendingMutateDeleteFile;
+
   return (
     <Modal
       onOpenChange={onOpenChange}
+      onClose={() => handleOnClose(onClose)}
       isOpen={isOpen}
       placement="center"
       scrollBehavior="inside"
@@ -90,11 +99,14 @@ const AddCategoryModal = (props: PropTypes) => {
                 render={({ field: { onChange, value, ...field } }) => (
                   <InputFile
                     {...field}
-                    onChange={(e) => {
-                      onChange(e.currentTarget.files);
-                    }}
+                    onDelete={() => handleDeleteIcon(onChange)}
+                    onUpload={(files) => handleUploadIcon(files, onChange)}
+                    isUploading={isPendingMutateUploadFile}
+                    isDeleting={isPendingMutateDeleteFile}
                     isInvalid={errors.icon !== undefined}
                     errorMessage={errors.icon?.message}
+                    isDropable
+                    preview={typeof preview === "string" ? preview : ""}
                   />
                 )}
               />
@@ -104,17 +116,13 @@ const AddCategoryModal = (props: PropTypes) => {
             <Button
               color="danger"
               variant="flat"
-              onPress={onClose}
-              disabled={isPendingMutateAddCategory || isSuccessMutateAddFile}
+              onPress={() => handleOnClose(onClose)}
+              disabled={disabledSubmit}
             >
               Cancel
             </Button>
-            <Button
-              color="danger"
-              type="submit"
-              disabled={isPendingMutateAddCategory || isSuccessMutateAddFile}
-            >
-              {isPendingMutateAddCategory || isSuccessMutateAddFile ? (
+            <Button color="danger" type="submit" disabled={disabledSubmit}>
+              {isPendingMutateAddCategory ? (
                 <Spinner size="sm" color="white" />
               ) : (
                 "Create Category"
