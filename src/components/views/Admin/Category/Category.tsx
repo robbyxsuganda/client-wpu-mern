@@ -63,7 +63,7 @@ const Category = () => {
               <DropdownMenu>
                 <DropdownItem
                   key={`detail-category-botton`}
-                  onPress={() => push(`/admin/categoy/${category._id}`)}
+                  onPress={() => push(`/admin/category/${category._id}`)}
                 >
                   Detail Category
                 </DropdownItem>
