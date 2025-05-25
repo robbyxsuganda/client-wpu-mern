@@ -1,16 +1,16 @@
 import DashboardLayout from "@/components/layouts/DashboardLayout";
-import DetailCategory from "@/components/views/Admin/DetailCategory";
+import DetailEvent from "@/components/views/Admin/DetailEvent";
 
-const AdminDetailCategoryPage = () => {
+const AdminDetailEventPage = () => {
   return (
     <DashboardLayout
-      title="Detail Category"
-      description="Manage information for this category"
+      title="Detail Event"
+      description="Manage information for this Event"
       type="admin"
     >
-      <DetailCategory />
+      <DetailEvent />
     </DashboardLayout>
   );
 };
 
-export default AdminDetailCategoryPage;
+export default AdminDetailEventPage;

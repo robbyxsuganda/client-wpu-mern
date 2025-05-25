@@ -20,7 +20,7 @@ const useDetailCategory = () => {
     enabled: isReady,
   });
 
-  const updtaCategory = async (payload: ICategory) => {
+  const updateCategory = async (payload: ICategory) => {
     const { data } = await categoryServices.updateCategory(
       `${query.id}`,
       payload,
@@ -33,7 +33,7 @@ const useDetailCategory = () => {
     isPending: isPendingMutateUpdateCategory,
     isSuccess: isSuccessMutateUpdateCategory,
   } = useMutation({
-    mutationFn: (payload: ICategory) => updtaCategory(payload),
+    mutationFn: (payload: ICategory) => updateCategory(payload),
     onError: (error) => {
       setToaster({
         type: "error",
