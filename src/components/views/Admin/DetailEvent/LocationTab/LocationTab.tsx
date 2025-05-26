@@ -51,6 +51,7 @@ const LocationTab = (props: PropTypes) => {
 
       setValuesUpdateLocation("isOnline", `${dataEvent?.isOnline}`);
       setValuesUpdateLocation("region", `${dataEvent?.location?.region}`);
+      setValuesUpdateLocation("address", `${dataEvent?.location?.address}`);
       setValuesUpdateLocation(
         "latitude",
         `${dataEvent?.location?.coordinates[0]}`,
@@ -104,6 +105,25 @@ const LocationTab = (props: PropTypes) => {
                       Offline
                     </SelectItem>
                   </Select>
+                )}
+              />
+            </Skeleton>
+            <Skeleton
+              isLoaded={!!dataEvent?.location?.address}
+              className="rounded-lg"
+            >
+              <Controller
+                name="address"
+                control={controlUpdateLocation}
+                render={({ field }) => (
+                  <Textarea
+                    {...field}
+                    label="Address"
+                    labelPlacement="outside"
+                    variant="bordered"
+                    isInvalid={errorsUpdateLocation.address !== undefined}
+                    errorMessage={errorsUpdateLocation.address?.message}
+                  />
                 )}
               />
             </Skeleton>
