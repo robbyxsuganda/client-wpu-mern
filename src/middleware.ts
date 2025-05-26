@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { JWTExtended } from "./types/Auth";
 import { getToken } from "next-auth/jwt";
-import { environment } from "./config/environment";
+import environment from "./config/environment";
 
 export async function middleware(req: NextRequest) {
   const token: JWTExtended | null = await getToken({

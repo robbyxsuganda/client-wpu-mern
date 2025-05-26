@@ -10,6 +10,9 @@ interface PropTypes {
 
 const HomeCategoryList = (props: PropTypes) => {
   const { categories, isLoading } = props;
+
+  console.log(categories, "<<<");
+
   return (
     <Card className="mx-6 mb-8 p-8 lg:mx-0">
       <CardHeader className="p-0">
@@ -17,7 +20,7 @@ const HomeCategoryList = (props: PropTypes) => {
       </CardHeader>
       <CardBody className="mt-4 p-0">
         <div className="grid auto-cols-[8rem] grid-flow-col gap-4 overflow-x-auto lg:grid-cols-8">
-          {!isLoading
+          {!isLoading && Array.isArray(categories)
             ? categories?.map((category) => (
                 <Link
                   href={`/event?category=${category._id}`}
