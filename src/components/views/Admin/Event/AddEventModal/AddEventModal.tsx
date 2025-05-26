@@ -20,6 +20,7 @@ import InputFile from "@/components/ui/InputFile";
 import { useEffect } from "react";
 import { ICategory } from "@/types/Category";
 import { IRegency } from "@/types/Event";
+import { getLocalTimeZone, now } from "@internationalized/date";
 
 interface PropTypes {
   isOpen: boolean;
@@ -44,6 +45,7 @@ const AddEventModal = (props: PropTypes) => {
     handleOnClose,
     isPendingMutateUploadFile,
     isPendingMutateDeleteFile,
+    setValue,
 
     dataCategory,
     dataRegion,
@@ -57,6 +59,11 @@ const AddEventModal = (props: PropTypes) => {
       refetchEvents();
     }
   }, [isSuccessMutateAddEvent]);
+
+  useEffect(() => {
+    setValue("startDate", now(getLocalTimeZone()));
+    setValue("endDate", now(getLocalTimeZone()));
+  }, [onOpenChange]);
 
   const disabledSubmit =
     isPendingMutateAddEvent ||
@@ -200,27 +207,6 @@ const AddEventModal = (props: PropTypes) => {
                   )}
                 />
                 <Controller
-                  name="isOnline"
-                  control={control}
-                  render={({ field }) => (
-                    <Select
-                      {...field}
-                      label="Online or Offline"
-                      variant="bordered"
-                      isInvalid={errors.isOnline !== undefined}
-                      errorMessage={errors.isOnline?.message}
-                      disallowEmptySelection
-                    >
-                      <SelectItem key={"true"} value={"true"}>
-                        Online
-                      </SelectItem>
-                      <SelectItem key={"false"} value={"false"}>
-                        Offline
-                      </SelectItem>
-                    </Select>
-                  )}
-                />
-                <Controller
                   name="description"
                   control={control}
                   render={({ field }) => (
@@ -235,6 +221,27 @@ const AddEventModal = (props: PropTypes) => {
                 />
                 <p className="text-sm font-bold">Location</p>
                 <div className="flex flex-col gap-2">
+                  <Controller
+                    name="isOnline"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        label="Online or Offline"
+                        variant="bordered"
+                        isInvalid={errors.isOnline !== undefined}
+                        errorMessage={errors.isOnline?.message}
+                        disallowEmptySelection
+                      >
+                        <SelectItem key={"true"} value={"true"}>
+                          Online
+                        </SelectItem>
+                        <SelectItem key={"false"} value={"false"}>
+                          Offline
+                        </SelectItem>
+                      </Select>
+                    )}
+                  />
                   <Controller
                     name="region"
                     control={control}
