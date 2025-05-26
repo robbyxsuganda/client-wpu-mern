@@ -16,6 +16,7 @@ const Home = () => {
     dataCategories,
     isLoadingCategories,
   } = useHome();
+
   return (
     <div>
       <HomeSlider

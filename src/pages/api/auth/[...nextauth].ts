@@ -1,8 +1,8 @@
-import { environment } from "@/config/environment";
 import NextAuth from "next-auth";
 import { JWTExtended, SessionExtended, UserExtended } from "@/types/Auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import authServices from "@/services/auth.service";
+import environment from "@/config/environment";
 
 export default NextAuth({
   session: {
