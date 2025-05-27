@@ -51,7 +51,7 @@ const InputFile = (props: PropTypes) => {
   };
 
   useEffect(() => {
-    const dropCurrent = drop.current;
+    const dropCurrent = drop?.current;
     if (dropCurrent) {
       dropCurrent?.addEventListener("dragover", handleDragOver);
       dropCurrent?.addEventListener("drop", handleDrop);
