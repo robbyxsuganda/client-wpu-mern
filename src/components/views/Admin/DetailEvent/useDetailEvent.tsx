@@ -2,7 +2,7 @@ import { ToasterContext } from "@/contexts/ToasterContext";
 import eventServices from "@/services/event.service";
 import { IEvent, IEventForm } from "@/types/Event";
 import { toDateStandard } from "@/utils/date";
-import { DateValue } from "@nextui-org/react";
+import { DateValue } from "@heroui/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useContext } from "react";
@@ -43,7 +43,7 @@ const useDetailEvent = () => {
       refetchEvent();
       setToaster({
         type: "success",
-        message: "Success Update Categoty",
+        message: "Success update event",
       });
     },
   });
@@ -73,20 +73,20 @@ const useDetailEvent = () => {
 
   const { data: dataDefaultRegion, isPending: isPendingDefaultRegion } =
     useQuery({
-      queryKey: ["Default Region"],
+      queryKey: ["defaultRegion"],
       queryFn: () => eventServices.getRegencyById(dataEvent?.location?.region),
       enabled: !!dataEvent?.location?.region,
     });
 
   return {
     dataEvent,
-    dataDefaultRegion,
-    isPendingDefaultRegion,
     handleUpdateEvent,
-    handleUpdateInfo,
-    handleUpdateLocation,
     isPendingMutateUpdateEvent,
     isSuccessMutateUpdateEvent,
+    handleUpdateInfo,
+    handleUpdateLocation,
+    dataDefaultRegion,
+    isPendingDefaultRegion,
   };
 };
 

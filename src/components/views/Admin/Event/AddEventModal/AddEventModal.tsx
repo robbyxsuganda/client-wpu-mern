@@ -13,7 +13,7 @@ import {
   SelectItem,
   Spinner,
   Textarea,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import useAddEventModal from "./useAddEventModal";
 import { Controller } from "react-hook-form";
 import InputFile from "@/components/ui/InputFile";
@@ -25,8 +25,8 @@ import { getLocalTimeZone, now } from "@internationalized/date";
 interface PropTypes {
   isOpen: boolean;
   onClose: () => void;
-  refetchEvents: () => void;
   onOpenChange: () => void;
+  refetchEvents: () => void;
 }
 
 const AddEventModal = (props: PropTypes) => {
@@ -38,14 +38,14 @@ const AddEventModal = (props: PropTypes) => {
     handleAddEvent,
     isPendingMutateAddEvent,
     isSuccessMutateAddEvent,
+    setValue,
 
     preview,
     handleUploadBanner,
-    handleDeleteBanner,
-    handleOnClose,
     isPendingMutateUploadFile,
+    handleDeleteBanner,
     isPendingMutateDeleteFile,
-    setValue,
+    handleOnClose,
 
     dataCategory,
     dataRegion,
@@ -60,23 +60,23 @@ const AddEventModal = (props: PropTypes) => {
     }
   }, [isSuccessMutateAddEvent]);
 
-  useEffect(() => {
-    setValue("startDate", now(getLocalTimeZone()));
-    setValue("endDate", now(getLocalTimeZone()));
-  }, [onOpenChange]);
-
   const disabledSubmit =
     isPendingMutateAddEvent ||
     isPendingMutateUploadFile ||
     isPendingMutateDeleteFile;
 
+  useEffect(() => {
+    setValue("startDate", now(getLocalTimeZone()));
+    setValue("endDate", now(getLocalTimeZone()));
+  }, [onOpenChange]);
+
   return (
     <Modal
       onOpenChange={onOpenChange}
-      onClose={() => handleOnClose(onClose)}
       isOpen={isOpen}
       placement="center"
       scrollBehavior="inside"
+      onClose={() => handleOnClose(onClose)}
     >
       <form onSubmit={handleSubmitForm(handleAddEvent)}>
         <ModalContent className="m-4">
@@ -124,7 +124,7 @@ const AddEventModal = (props: PropTypes) => {
                       isInvalid={errors.category !== undefined}
                       errorMessage={errors.category?.message}
                       onSelectionChange={(value) => onChange(value)}
-                      placeholder="Search category here"
+                      placeholder="Search category here..."
                     >
                       {(category: ICategory) => (
                         <AutocompleteItem key={`${category._id}`}>
@@ -176,10 +176,10 @@ const AddEventModal = (props: PropTypes) => {
                       errorMessage={errors.isPublish?.message}
                       disallowEmptySelection
                     >
-                      <SelectItem key={"true"} value={"true"}>
+                      <SelectItem key="true" value="true">
                         Publish
                       </SelectItem>
-                      <SelectItem key={"false"} value={"false"}>
+                      <SelectItem key="false" value="false">
                         Draft
                       </SelectItem>
                     </Select>
@@ -197,10 +197,10 @@ const AddEventModal = (props: PropTypes) => {
                       errorMessage={errors.isFeatured?.message}
                       disallowEmptySelection
                     >
-                      <SelectItem key={"true"} value={"true"}>
+                      <SelectItem key="true" value="true">
                         Yes
                       </SelectItem>
-                      <SelectItem key={"false"} value={"false"}>
+                      <SelectItem key="false" value="false">
                         No
                       </SelectItem>
                     </Select>
@@ -219,96 +219,96 @@ const AddEventModal = (props: PropTypes) => {
                     />
                   )}
                 />
-                <p className="text-sm font-bold">Location</p>
-                <div className="flex flex-col gap-2">
-                  <Controller
-                    name="isOnline"
-                    control={control}
-                    render={({ field }) => (
-                      <Select
-                        {...field}
-                        label="Online or Offline"
-                        variant="bordered"
-                        isInvalid={errors.isOnline !== undefined}
-                        errorMessage={errors.isOnline?.message}
-                        disallowEmptySelection
-                      >
-                        <SelectItem key={"true"} value={"true"}>
-                          Online
-                        </SelectItem>
-                        <SelectItem key={"false"} value={"false"}>
-                          Offline
-                        </SelectItem>
-                      </Select>
-                    )}
-                  />
-                  <Controller
-                    name="region"
-                    control={control}
-                    render={({ field: { onChange, ...field } }) => (
-                      <Autocomplete
-                        {...field}
-                        defaultItems={
-                          dataRegion?.data.data && searchRegency !== ""
-                            ? dataRegion?.data?.data
-                            : []
-                        }
-                        label="City"
-                        variant="bordered"
-                        onInputChange={(search) => handleSearchRegion(search)}
-                        isInvalid={errors.region !== undefined}
-                        errorMessage={errors.region?.message}
-                        onSelectionChange={(value) => onChange(value)}
-                        placeholder="Search city here"
-                      >
-                        {(regency: IRegency) => (
-                          <AutocompleteItem key={`${regency.id}`}>
-                            {regency.name}
-                          </AutocompleteItem>
-                        )}
-                      </Autocomplete>
-                    )}
-                  />
-                  <Controller
-                    name="address"
-                    control={control}
-                    render={({ field }) => (
-                      <Input
-                        {...field}
-                        label="Address"
-                        variant="bordered"
-                        isInvalid={errors.address !== undefined}
-                        errorMessage={errors.address?.message}
-                      />
-                    )}
-                  />
-                  <Controller
-                    name="latitude"
-                    control={control}
-                    render={({ field }) => (
-                      <Input
-                        {...field}
-                        label="Latitude"
-                        variant="bordered"
-                        isInvalid={errors.latitude !== undefined}
-                        errorMessage={errors.latitude?.message}
-                      />
-                    )}
-                  />
-                  <Controller
-                    name="longitude"
-                    control={control}
-                    render={({ field }) => (
-                      <Input
-                        {...field}
-                        label="Longitude"
-                        variant="bordered"
-                        isInvalid={errors.longitude !== undefined}
-                        errorMessage={errors.longitude?.message}
-                      />
-                    )}
-                  />
-                </div>
+              </div>
+              <p className="text-sm font-bold">Location</p>
+              <div className="mb-4 flex flex-col gap-4">
+                <Controller
+                  name="isOnline"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      label="Online / Offline"
+                      variant="bordered"
+                      isInvalid={errors.isOnline !== undefined}
+                      errorMessage={errors.isOnline?.message}
+                      disallowEmptySelection
+                    >
+                      <SelectItem key="true" value="true">
+                        Online
+                      </SelectItem>
+                      <SelectItem key="false" value="false">
+                        Offline
+                      </SelectItem>
+                    </Select>
+                  )}
+                />
+                <Controller
+                  name="region"
+                  control={control}
+                  render={({ field: { onChange, ...field } }) => (
+                    <Autocomplete
+                      {...field}
+                      defaultItems={
+                        dataRegion?.data.data && searchRegency !== ""
+                          ? dataRegion?.data.data
+                          : []
+                      }
+                      label="City"
+                      variant="bordered"
+                      onInputChange={(search) => handleSearchRegion(search)}
+                      isInvalid={errors.region !== undefined}
+                      errorMessage={errors.region?.message}
+                      onSelectionChange={(value) => onChange(value)}
+                      placeholder="Search city here..."
+                    >
+                      {(regency: IRegency) => (
+                        <AutocompleteItem key={`${regency.id}`}>
+                          {regency.name}
+                        </AutocompleteItem>
+                      )}
+                    </Autocomplete>
+                  )}
+                />
+                <Controller
+                  name="address"
+                  control={control}
+                  render={({ field }) => (
+                    <Input
+                      {...field}
+                      label="Address"
+                      variant="bordered"
+                      isInvalid={errors.address !== undefined}
+                      errorMessage={errors.address?.message}
+                    />
+                  )}
+                />
+                <Controller
+                  name="latitude"
+                  control={control}
+                  render={({ field }) => (
+                    <Input
+                      {...field}
+                      label="Latitude"
+                      variant="bordered"
+                      isInvalid={errors.latitude !== undefined}
+                      errorMessage={errors.latitude?.message}
+                    />
+                  )}
+                />
+                <Controller
+                  name="longitude"
+                  control={control}
+                  render={({ field }) => (
+                    <Input
+                      {...field}
+                      label="Longitude"
+                      variant="bordered"
+                      isInvalid={errors.longitude !== undefined}
+                      errorMessage={errors.longitude?.message}
+                    />
+                  )}
+                />
               </div>
               <p className="text-sm font-bold">Cover</p>
               <Controller
@@ -325,7 +325,6 @@ const AddEventModal = (props: PropTypes) => {
                     errorMessage={errors.banner?.message}
                     isDropable
                     preview={typeof preview === "string" ? preview : ""}
-                    className="mb-2"
                   />
                 )}
               />

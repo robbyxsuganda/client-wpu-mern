@@ -1,11 +1,11 @@
-import "@/styles/globals.css";
-import { NextUIProvider } from "@nextui-org/react";
-import type { AppProps } from "next/app";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { SessionProvider } from "next-auth/react";
 import AppShell from "@/components/commons/AppShell";
 import { ToasterProvider } from "@/contexts/ToasterContext";
 import { onErrorHander } from "@/libs/axios/reponseHandler";
+import "@/styles/globals.css";
+import { HeroUIProvider } from "@heroui/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { SessionProvider } from "next-auth/react";
+import type { AppProps } from "next/app";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,15 +28,15 @@ export default function App({
   pageProps: { session, ...pageProps },
 }: AppProps) {
   return (
-    <SessionProvider session={pageProps.session}>
+    <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
-        <NextUIProvider>
+        <HeroUIProvider>
           <ToasterProvider>
             <AppShell>
               <Component {...pageProps} />
             </AppShell>
           </ToasterProvider>
-        </NextUIProvider>
+        </HeroUIProvider>
       </QueryClientProvider>
     </SessionProvider>
   );

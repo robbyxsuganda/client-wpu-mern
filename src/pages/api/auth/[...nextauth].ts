@@ -1,8 +1,8 @@
-import NextAuth from "next-auth";
-import { JWTExtended, SessionExtended, UserExtended } from "@/types/Auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import authServices from "@/services/auth.service";
 import environment from "@/config/environment";
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { JWTExtended, SessionExtended, UserExtended } from "@/types/Auth";
+import authServices from "@/services/auth.service";
 
 export default NextAuth({
   session: {
@@ -26,20 +26,21 @@ export default NextAuth({
           password: string;
         };
 
-        const res = await authServices.login({
+        const result = await authServices.login({
           identifier,
           password,
         });
-        const accessToken = res.data.data;
+
+        const accessToken = result.data.data;
 
         const me = await authServices.getProfileWithToken(accessToken);
         const user = me.data.data;
 
         if (
-          res.status === 200 &&
-          me.status === 200 &&
           accessToken &&
-          user._id
+          result.status === 200 &&
+          user._id &&
+          me.status === 200
         ) {
           user.accessToken = accessToken;
           return user;
@@ -60,6 +61,7 @@ export default NextAuth({
       if (user) {
         token.user = user;
       }
+
       return token;
     },
     async session({

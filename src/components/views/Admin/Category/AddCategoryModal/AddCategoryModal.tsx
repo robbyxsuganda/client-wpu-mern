@@ -8,7 +8,7 @@ import {
   ModalHeader,
   Spinner,
   Textarea,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import useAddCategoryModal from "./useAddCategoryModal";
 import { Controller } from "react-hook-form";
 import InputFile from "@/components/ui/InputFile";
@@ -17,8 +17,8 @@ import { useEffect } from "react";
 interface PropTypes {
   isOpen: boolean;
   onClose: () => void;
-  refetchCategory: () => void;
   onOpenChange: () => void;
+  refetchCategory: () => void;
 }
 
 const AddCategoryModal = (props: PropTypes) => {
@@ -30,12 +30,13 @@ const AddCategoryModal = (props: PropTypes) => {
     handleAddCategory,
     isPendingMutateAddCategory,
     isSuccessMutateAddCategory,
+
     preview,
     handleUploadIcon,
-    handleDeleteIcon,
-    handleOnClose,
     isPendingMutateUploadFile,
+    handleDeleteIcon,
     isPendingMutateDeleteFile,
+    handleOnClose,
   } = useAddCategoryModal();
 
   useEffect(() => {
@@ -53,10 +54,10 @@ const AddCategoryModal = (props: PropTypes) => {
   return (
     <Modal
       onOpenChange={onOpenChange}
-      onClose={() => handleOnClose(onClose)}
       isOpen={isOpen}
       placement="center"
       scrollBehavior="inside"
+      onClose={() => handleOnClose(onClose)}
     >
       <form onSubmit={handleSubmitForm(handleAddCategory)}>
         <ModalContent className="m-4">

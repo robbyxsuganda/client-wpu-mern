@@ -1,12 +1,7 @@
+import environment from "@/config/environment";
+import { SessionExtended } from "@/types/Auth";
 import axios from "axios";
 import { getSession } from "next-auth/react";
-import { Session } from "next-auth";
-import { SessionExtended } from "@/types/Auth";
-import environment from "@/config/environment";
-
-interface CustomSession extends Session {
-  accessToken?: string;
-}
 
 const headers = {
   "Content-Type": "application/json",
@@ -26,18 +21,12 @@ instance.interceptors.request.use(
     }
     return request;
   },
-  (error) => {
-    return Promise.reject(error);
-  },
+  (error) => Promise.reject(error),
 );
 
 instance.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  (error) => {
-    return Promise.reject(error);
-  },
+  (response) => response,
+  (error) => Promise.reject(error),
 );
 
 export default instance;

@@ -1,6 +1,6 @@
 import instance from "@/libs/axios/instance";
+import endpoint from "./endpoint.constant";
 import { ICart } from "@/types/Ticket";
-import endpoint from "./endpoint.constans";
 
 const orderServices = {
   getOrders: (params: string) => instance.get(`${endpoint.ORDER}?${params}`),

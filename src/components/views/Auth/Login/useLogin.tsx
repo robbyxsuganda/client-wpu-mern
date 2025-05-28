@@ -3,22 +3,22 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ILogin } from "@/types/Auth";
+import authServices from "@/services/auth.service";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 import { ToasterContext } from "@/contexts/ToasterContext";
 
 const loginSchema = yup.object().shape({
-  identifier: yup.string().required("Please input your email or username"),
+  identifier: yup.string().required("Please input your email or password"),
   password: yup.string().required("Please input your password"),
 });
 
 const useLogin = () => {
   const router = useRouter();
-  const { setToaster } = useContext(ToasterContext);
   const [isVisible, setIsVisible] = useState(false);
-
-  const toogleVisibility = () => setIsVisible(!isVisible);
+  const toggleVisibility = () => setIsVisible(!isVisible);
+  const { setToaster } = useContext(ToasterContext);
 
   const callbackUrl: string = (router.query.callbackUrl as string) || "/";
 
@@ -27,6 +27,7 @@ const useLogin = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    setError,
   } = useForm({
     resolver: yupResolver(loginSchema),
   });
@@ -38,33 +39,33 @@ const useLogin = () => {
       callbackUrl,
     });
     if (result?.error && result?.status === 401) {
-      throw new Error("Email or username not match with your password");
+      throw new Error("Login Failed");
     }
   };
 
-  const { mutate: mutatelogin, isPending: isPendingLogin } = useMutation({
+  const { mutate: mutateLogin, isPending: isPendingLogin } = useMutation({
     mutationFn: loginService,
-    onError: (error) => {
+    onError: () => {
       setToaster({
         type: "error",
-        message: error.message,
+        message: "Your credential is wrong",
       });
     },
     onSuccess: () => {
+      reset();
       setToaster({
         type: "success",
-        message: "login Success",
+        message: "Login success",
       });
       router.push(callbackUrl);
-      reset();
     },
   });
 
-  const handleLogin = (data: ILogin) => mutatelogin(data);
+  const handleLogin = (data: ILogin) => mutateLogin(data);
 
   return {
     isVisible,
-    toogleVisibility,
+    toggleVisibility,
     control,
     handleSubmit,
     handleLogin,

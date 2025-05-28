@@ -1,4 +1,4 @@
-import { DELAY } from "@/constans/list.constants";
+import { DELAY } from "@/constants/list.constants";
 import { ToasterContext } from "@/contexts/ToasterContext";
 import useDebounce from "@/hooks/useDebounce";
 import useMediaHandling from "@/hooks/useMediaHandling";
@@ -7,9 +7,8 @@ import eventServices from "@/services/event.service";
 import { IEvent, IEventForm } from "@/types/Event";
 import { toDateStandard } from "@/utils/date";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { DateValue } from "@nextui-org/react";
+import { DateValue } from "@heroui/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -22,18 +21,17 @@ const schema = yup.object().shape({
   endDate: yup.mixed<DateValue>().required("Please select end date"),
   isPublish: yup.string().required("Please select status"),
   isFeatured: yup.string().required("Please select featured"),
-  description: yup.string().required("Please select description"),
+  description: yup.string().required("Please input description"),
   isOnline: yup.string().required("Please select online or offline"),
   region: yup.string().required("Please select region"),
-  latitude: yup.string().required("Please input latitute cordinate"),
-  longitude: yup.string().required("Please input longitude cordinate"),
+  longitude: yup.string().required("Please input longitude coordinate"),
+  latitude: yup.string().required("Please select latitude coordinate"),
   banner: yup.mixed<FileList | string>().required("Please input banner"),
   address: yup.string().required("Please input address"),
 });
 
 const useAddEventModal = () => {
   const { setToaster } = useContext(ToasterContext);
-  const router = useRouter();
   const debounce = useDebounce();
   const {
     isPendingMutateUploadFile,
@@ -88,8 +86,9 @@ const useAddEventModal = () => {
   });
 
   const [searchRegency, setSearchRegency] = useState("");
+
   const { data: dataRegion } = useQuery({
-    queryKey: ["Regions", searchRegency],
+    queryKey: ["region", searchRegency],
     queryFn: () => eventServices.searchLocationByRegency(`${searchRegency}`),
     enabled: searchRegency !== "",
   });
@@ -118,7 +117,7 @@ const useAddEventModal = () => {
     onSuccess: () => {
       setToaster({
         type: "success",
-        message: "Success Add Event",
+        message: "Success add category",
       });
       reset();
     },
@@ -151,10 +150,10 @@ const useAddEventModal = () => {
 
     preview,
     handleUploadBanner,
-    handleDeleteBanner,
-    handleOnClose,
     isPendingMutateUploadFile,
+    handleDeleteBanner,
     isPendingMutateDeleteFile,
+    handleOnClose,
 
     dataCategory,
     dataRegion,

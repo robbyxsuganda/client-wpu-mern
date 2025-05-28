@@ -18,12 +18,12 @@ const AppShell = (props: PropTypes) => {
   const { toaster, setToaster } = useContext(ToasterContext);
 
   useEffect(() => {
-    const timeOut = setTimeout(() => {
+    const timeout = setTimeout(() => {
       setToaster(defaultToaster);
     }, 3000);
 
     return () => {
-      clearTimeout(timeOut);
+      clearTimeout(timeout);
     };
   }, [toaster]);
 

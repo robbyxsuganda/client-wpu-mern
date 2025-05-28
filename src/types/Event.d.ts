@@ -1,4 +1,10 @@
 import { DateValue } from "@nextui-org/react";
+import { StringDecoder } from "string_decoder";
+
+interface IRegency {
+  id: string;
+  name: string;
+}
 
 interface IEvent {
   _id?: string;
@@ -9,7 +15,6 @@ interface IEvent {
   isPublish?: boolean | string;
   isOnline?: boolean | string;
   description?: string;
-  banner?: string | FileList;
   startDate?: string | DateValue;
   endDate?: string | DateValue;
   location?: {
@@ -17,18 +22,14 @@ interface IEvent {
     region: string;
     coordinates: number[];
   };
+  banner?: string | FileList;
 }
 
 interface IEventForm extends IEvent {
   address?: string;
-  region?: string;
   latitude?: string;
   longitude?: string;
+  region?: string;
 }
 
-interface IRegency {
-  id: string;
-  name: string;
-}
-
-export type { IEvent, IEventForm, IRegency };
+export type { IRegency, IEvent, IEventForm };

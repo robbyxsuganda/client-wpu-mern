@@ -9,10 +9,10 @@ const schemaUpdateIcon = yup.object().shape({
 
 const useIconTab = () => {
   const {
-    isPendingMutateUploadFile,
-    isPendingMutateDeleteFile,
     handleUploadFile,
+    isPendingMutateUploadFile,
     handleDeleteFile,
+    isPendingMutateDeleteFile,
   } = useMediaHandling();
 
   const {
@@ -22,7 +22,7 @@ const useIconTab = () => {
     reset: resetUpdateIcon,
     watch: watchUpdateIcon,
     getValues: getValuesUpdateIcon,
-    setValue: setValuesUpdateIcon,
+    setValue: setValueUpdateIcon,
   } = useForm({
     resolver: yupResolver(schemaUpdateIcon),
   });
@@ -36,7 +36,7 @@ const useIconTab = () => {
   ) => {
     handleUploadFile(files, onChange, (fileUrl: string | undefined) => {
       if (fileUrl) {
-        setValuesUpdateIcon("icon", fileUrl);
+        setValueUpdateIcon("icon", fileUrl);
       }
     });
   };

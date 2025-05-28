@@ -5,7 +5,7 @@ const AdminDetailCategoryPage = () => {
   return (
     <DashboardLayout
       title="Detail Category"
-      description="Manage information for this category"
+      description="Manage information for this category."
       type="admin"
     >
       <DetailCategory />

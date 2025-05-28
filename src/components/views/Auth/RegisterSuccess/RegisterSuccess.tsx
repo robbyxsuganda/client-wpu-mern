@@ -1,11 +1,11 @@
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
 const RegisterSuccess = () => {
   const router = useRouter();
   return (
-    <div className="w-sceen flex flex-col items-center justify-center gap-10">
+    <div className="flex w-screen flex-col items-center justify-center gap-10 p-4">
       <div className="flex flex-col items-center justify-center gap-10">
         <Image
           src="/images/general/logo.svg"
@@ -15,7 +15,7 @@ const RegisterSuccess = () => {
         />
         <Image
           src="/images/illustrations/email-send.svg"
-          alt="success register"
+          alt="success"
           width={300}
           height={300}
         />
@@ -25,15 +25,15 @@ const RegisterSuccess = () => {
           Create Account Success
         </h1>
         <p className="text-xl font-bold text-default-500">
-          check your email to verify your account
+          Check your email for account activation
         </p>
         <Button
           className="mt-4 w-fit"
           variant="bordered"
           color="danger"
-          onPress={() => router.push("/")}
+          onClick={() => router.push("/")}
         >
-          Back to Home
+          Back To Home
         </Button>
       </div>
     </div>

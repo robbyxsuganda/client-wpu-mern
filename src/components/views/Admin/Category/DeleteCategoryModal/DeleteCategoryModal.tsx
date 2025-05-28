@@ -6,7 +6,7 @@ import {
   ModalFooter,
   ModalHeader,
   Spinner,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import useDeleteCategoryModal from "./useDeleteCategoryModal";
 
@@ -22,11 +22,11 @@ interface PropTypes {
 const DeleteCategoryModal = (props: PropTypes) => {
   const {
     isOpen,
-    onOpenChange,
     onClose,
-    refetchCategory,
+    onOpenChange,
     selectedId,
     setSelectedId,
+    refetchCategory,
   } = props;
 
   const {

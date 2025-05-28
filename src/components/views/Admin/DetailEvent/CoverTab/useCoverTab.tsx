@@ -4,15 +4,15 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 const schemaUpdateCover = yup.object().shape({
-  banner: yup.mixed<FileList | string>().required("Please input Cover"),
+  banner: yup.mixed<FileList | string>().required("Please input cover"),
 });
 
 const useCoverTab = () => {
   const {
-    isPendingMutateUploadFile,
-    isPendingMutateDeleteFile,
     handleUploadFile,
+    isPendingMutateUploadFile,
     handleDeleteFile,
+    isPendingMutateDeleteFile,
   } = useMediaHandling();
 
   const {
@@ -22,7 +22,7 @@ const useCoverTab = () => {
     reset: resetUpdateCover,
     watch: watchUpdateCover,
     getValues: getValuesUpdateCover,
-    setValue: setValuesUpdateCover,
+    setValue: setValueUpdateCover,
   } = useForm({
     resolver: yupResolver(schemaUpdateCover),
   });
@@ -36,7 +36,7 @@ const useCoverTab = () => {
   ) => {
     handleUploadFile(files, onChange, (fileUrl: string | undefined) => {
       if (fileUrl) {
-        setValuesUpdateCover("banner", fileUrl);
+        setValueUpdateCover("banner", fileUrl);
       }
     });
   };

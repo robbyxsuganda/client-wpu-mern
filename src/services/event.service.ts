@@ -1,6 +1,6 @@
 import instance from "@/libs/axios/instance";
+import endpoint from "./endpoint.constant";
 import { IEvent } from "@/types/Event";
-import endpoint from "./endpoint.constans";
 
 const eventServices = {
   getEvents: (params?: string) => instance.get(`${endpoint.EVENT}?${params}`),

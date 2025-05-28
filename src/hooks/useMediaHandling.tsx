@@ -5,6 +5,7 @@ import { useContext } from "react";
 
 const useMediaHandling = () => {
   const { setToaster } = useContext(ToasterContext);
+
   const uploadFile = async (
     file: File,
     callback: (fileUrl: string) => void,
@@ -16,7 +17,6 @@ const useMediaHandling = () => {
         data: { secure_url: fileUrl },
       },
     } = await uploadServices.uploadFile(formData);
-
     callback(fileUrl);
   };
 

@@ -13,8 +13,8 @@ import { COLUMN_LISTS_TICKET } from "./TicketTab.constants";
 import useTicketTab from "./useTicketTab";
 import AddTicketModal from "./AddTicketModal";
 import DeleteTicketModal from "./DeleteTicketModal";
-import UpdateTicketModal from "./UpdateTicketModal";
 import { ITicket } from "@/types/Ticket";
+import UpdateTicketModal from "./UpdateTicketModal";
 
 const TicketTab = () => {
   const { dataTicket, refetchTicket, isPendingTicket, isRefetchingTicket } =

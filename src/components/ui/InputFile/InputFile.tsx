@@ -1,18 +1,25 @@
 import { cn } from "@/utils/cn";
-import { Button, Spinner } from "@nextui-org/react";
+import { Button, Spinner } from "@heroui/react";
 import Image from "next/image";
-import { ChangeEvent, ReactNode, useEffect, useId, useRef } from "react";
+import {
+  ChangeEvent,
+  ReactNode,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from "react";
 import { CiSaveUp2, CiTrash } from "react-icons/ci";
 
 interface PropTypes {
-  name: string;
   className?: string;
   errorMessage?: string;
+  isDeleting?: boolean;
   isDropable?: boolean;
   isInvalid?: boolean;
   isUploading?: boolean;
-  isDeleting?: boolean;
   label?: ReactNode;
+  name: string;
   onUpload?: (files: FileList) => void;
   onDelete?: () => void;
   preview?: string;
@@ -20,14 +27,14 @@ interface PropTypes {
 
 const InputFile = (props: PropTypes) => {
   const {
-    name,
     className,
+    errorMessage,
     isDropable = false,
     isInvalid,
     isUploading,
     isDeleting,
-    errorMessage,
     label,
+    name,
     onUpload,
     onDelete,
     preview,
@@ -51,14 +58,14 @@ const InputFile = (props: PropTypes) => {
   };
 
   useEffect(() => {
-    const dropCurrent = drop?.current;
+    const dropCurrent = drop.current;
     if (dropCurrent) {
-      dropCurrent?.addEventListener("dragover", handleDragOver);
-      dropCurrent?.addEventListener("drop", handleDrop);
+      dropCurrent.addEventListener("dragover", handleDragOver);
+      dropCurrent.addEventListener("drop", handleDrop);
 
       return () => {
-        dropCurrent?.removeEventListener("dragover", handleDragOver);
-        dropCurrent?.removeEventListener("drop", handleDrop);
+        dropCurrent.removeEventListener("dragover", handleDragOver);
+        dropCurrent.removeEventListener("drop", handleDrop);
       };
     }
   }, []);
@@ -83,7 +90,7 @@ const InputFile = (props: PropTypes) => {
         )}
       >
         {preview && (
-          <div className="relative flex w-full flex-col items-center justify-center p-5">
+          <div className="relative flex flex-col items-center justify-center p-5">
             <div className="mb-2 w-1/2">
               <Image fill src={preview} alt="image" className="!relative" />
             </div>
@@ -111,7 +118,6 @@ const InputFile = (props: PropTypes) => {
             </p>
           </div>
         )}
-
         {isUploading && (
           <div className="flex flex-col items-center justify-center p-5">
             <Spinner color="danger" />
@@ -127,7 +133,7 @@ const InputFile = (props: PropTypes) => {
           disabled={preview !== ""}
           onClick={(e) => {
             e.currentTarget.value = "";
-            e.target.dispatchEvent(new Event("cchange", { bubbles: true }));
+            e.target.dispatchEvent(new Event("change", { bubbles: true }));
           }}
         />
       </label>

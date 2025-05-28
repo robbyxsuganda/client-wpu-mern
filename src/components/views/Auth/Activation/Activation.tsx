@@ -1,4 +1,4 @@
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
@@ -7,11 +7,10 @@ interface PropTypes {
 }
 
 const Activation = (props: PropTypes) => {
-  const { status } = props;
   const router = useRouter();
-
+  const { status } = props;
   return (
-    <div className="w-sceen flex flex-col items-center justify-center gap-10">
+    <div className="flex w-screen flex-col items-center justify-center gap-10 p-4">
       <div className="flex flex-col items-center justify-center gap-10">
         <Image
           src="/images/general/logo.svg"
@@ -25,7 +24,7 @@ const Activation = (props: PropTypes) => {
               ? "/images/illustrations/success.svg"
               : "/images/illustrations/pending.svg"
           }
-          alt="success register"
+          alt="success"
           width={300}
           height={300}
         />
@@ -36,8 +35,8 @@ const Activation = (props: PropTypes) => {
         </h1>
         <p className="text-xl font-bold text-default-500">
           {status === "success"
-            ? "Thank for registration account in acara."
-            : "Confirmation code is invalid."}
+            ? "Thank you for register account in Acara"
+            : "Confirmation code is invalid"}
         </p>
         <Button
           className="mt-4 w-fit"
@@ -45,7 +44,7 @@ const Activation = (props: PropTypes) => {
           color="danger"
           onPress={() => router.push("/")}
         >
-          Back to Home
+          Back To Home
         </Button>
       </div>
     </div>

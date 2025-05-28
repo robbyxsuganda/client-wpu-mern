@@ -1,6 +1,6 @@
 import instance from "@/libs/axios/instance";
+import endpoint from "./endpoint.constant";
 import { IBanner } from "@/types/Banner";
-import endpoint from "./endpoint.constans";
 
 const bannerServices = {
   getBanners: (params?: string) => instance.get(`${endpoint.BANNER}?${params}`),

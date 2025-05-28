@@ -1,5 +1,5 @@
 import instance from "@/libs/axios/instance";
-import endpoint from "./endpoint.constans";
+import endpoint from "./endpoint.constant";
 import { ITicket } from "@/types/Ticket";
 
 const ticketServices = {

@@ -7,18 +7,15 @@ import { useState } from "react";
 const useCategory = () => {
   const [selectedId, setSelectedId] = useState<string>("");
   const router = useRouter();
-  const { currentPage, currentLimit, currentSearch } = useChangeUrl();
+  const { currentLimit, currentPage, currentSearch } = useChangeUrl();
 
   const getCategories = async () => {
     let params = `limit=${currentLimit}&page=${currentPage}`;
-
     if (currentSearch) {
       params += `&search=${currentSearch}`;
     }
     const res = await categoryServices.getCategories(params);
-
     const { data } = res;
-
     return data;
   };
 
@@ -35,9 +32,10 @@ const useCategory = () => {
 
   return {
     dataCategory,
-    refetchCategory,
     isLoadingCategory,
     isRefetchingCategory,
+    refetchCategory,
+
     selectedId,
     setSelectedId,
   };

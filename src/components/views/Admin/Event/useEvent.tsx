@@ -7,18 +7,15 @@ import { useState } from "react";
 const useEvent = () => {
   const [selectedId, setSelectedId] = useState<string>("");
   const router = useRouter();
-  const { currentPage, currentLimit, currentSearch } = useChangeUrl();
+  const { currentLimit, currentPage, currentSearch } = useChangeUrl();
 
   const getEvents = async () => {
     let params = `limit=${currentLimit}&page=${currentPage}`;
-
     if (currentSearch) {
       params += `&search=${currentSearch}`;
     }
     const res = await eventServices.getEvents(params);
-
     const { data } = res;
-
     return data;
   };
 
@@ -35,9 +32,10 @@ const useEvent = () => {
 
   return {
     dataEvents,
-    refetchEvents,
     isLoadingEvents,
     isRefetchingEvents,
+    refetchEvents,
+
     selectedId,
     setSelectedId,
   };

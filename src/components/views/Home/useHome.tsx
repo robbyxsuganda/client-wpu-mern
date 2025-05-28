@@ -3,7 +3,7 @@ import {
   LIMIT_CATEGORY,
   LIMIT_EVENT,
   PAGE_DEFAULT,
-} from "@/constans/list.constants";
+} from "@/constants/list.constants";
 import bannerServices from "@/services/banner.service";
 import categoryServices from "@/services/category.service";
 import eventServices from "@/services/event.service";

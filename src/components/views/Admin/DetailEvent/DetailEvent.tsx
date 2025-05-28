@@ -1,4 +1,4 @@
-import { Tab, Tabs } from "@nextui-org/react";
+import { Tab, Tabs } from "@heroui/react";
 import CoverTab from "./CoverTab";
 import InfoTab from "./InfoTab";
 import useDetailEvent from "./useDetailEvent";
@@ -8,18 +8,17 @@ import TicketTab from "./TicketTab";
 const DetailEvent = () => {
   const {
     dataEvent,
-    dataDefaultRegion,
-    isPendingDefaultRegion,
     handleUpdateEvent,
-    handleUpdateInfo,
-    handleUpdateLocation,
     isPendingMutateUpdateEvent,
     isSuccessMutateUpdateEvent,
+    handleUpdateInfo,
+    handleUpdateLocation,
+    dataDefaultRegion,
+    isPendingDefaultRegion,
   } = useDetailEvent();
-
   return (
     <Tabs aria-label="Options">
-      <Tab key={"cover"} title="Cover">
+      <Tab key="cover" title="Cover">
         <CoverTab
           currentCover={dataEvent?.banner}
           onUpdate={handleUpdateEvent}
@@ -27,7 +26,7 @@ const DetailEvent = () => {
           isSuccessUpdate={isSuccessMutateUpdateEvent}
         />
       </Tab>
-      <Tab key={"info"} title="Info">
+      <Tab key="info" title="Info">
         <InfoTab
           dataEvent={dataEvent}
           onUpdate={handleUpdateInfo}
@@ -35,7 +34,7 @@ const DetailEvent = () => {
           isSuccessUpdate={isSuccessMutateUpdateEvent}
         />
       </Tab>
-      <Tab key={"location"} title="Location">
+      <Tab key="location" title="Location">
         <LocationTab
           dataEvent={dataEvent}
           dataDefaultRegion={dataDefaultRegion?.data?.data[0]?.name}
@@ -45,7 +44,7 @@ const DetailEvent = () => {
           isSuccessUpdate={isSuccessMutateUpdateEvent}
         />
       </Tab>
-      <Tab key={"ticket"} title="Ticket">
+      <Tab key="ticket" title="ticket">
         <TicketTab />
       </Tab>
     </Tabs>

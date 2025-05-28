@@ -1,5 +1,5 @@
 import DataTable from "@/components/ui/DataTable";
-import { useDisclosure } from "@nextui-org/react";
+import { useDisclosure } from "@heroui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Key, ReactNode, useCallback, useEffect } from "react";
@@ -14,17 +14,17 @@ const Category = () => {
   const { push, isReady, query } = useRouter();
   const {
     dataCategory,
-    refetchCategory,
     isLoadingCategory,
     isRefetchingCategory,
+    refetchCategory,
+
     selectedId,
     setSelectedId,
   } = useCategory();
 
-  const { setUrl } = useChangeUrl();
-
   const addCategoryModal = useDisclosure();
   const deleteCategoryModal = useDisclosure();
+  const { setUrl } = useChangeUrl();
 
   useEffect(() => {
     if (isReady) {
@@ -35,6 +35,7 @@ const Category = () => {
   const renderCell = useCallback(
     (category: Record<string, unknown>, columnKey: Key) => {
       const cellValue = category[columnKey as keyof typeof category];
+
       switch (columnKey) {
         case "icon":
           return (
@@ -73,12 +74,10 @@ const Category = () => {
           totalPages={dataCategory?.pagination.totalPages}
         />
       )}
-
       <AddCategoryModal
         {...addCategoryModal}
         refetchCategory={refetchCategory}
       />
-
       <DeleteCategoryModal
         {...deleteCategoryModal}
         selectedId={selectedId}

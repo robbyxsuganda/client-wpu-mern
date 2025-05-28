@@ -6,7 +6,7 @@ import {
   ModalFooter,
   ModalHeader,
   Spinner,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import useDeleteEventModal from "./useDeleteEventModal";
 
@@ -22,11 +22,11 @@ interface PropTypes {
 const DeleteEventModal = (props: PropTypes) => {
   const {
     isOpen,
-    onOpenChange,
     onClose,
-    refetchEvents,
+    onOpenChange,
     selectedId,
     setSelectedId,
+    refetchEvents,
   } = props;
 
   const {
@@ -54,7 +54,7 @@ const DeleteEventModal = (props: PropTypes) => {
         <ModalHeader>Delete Event</ModalHeader>
         <ModalBody>
           <p className="text-medium">
-            Are you sure you want to delete this Event?
+            Are you sure you want to delete this event?
           </p>
         </ModalBody>
         <ModalFooter>

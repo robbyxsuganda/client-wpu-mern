@@ -2,21 +2,20 @@ import { Button, Card, CardBody, Input, Spinner } from "@heroui/react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import Image from "next/image";
 import Link from "next/link";
+import useLogin from "./useLogin";
 import { Controller } from "react-hook-form";
 import { cn } from "@/utils/cn";
-import useLogin from "./useLogin";
 
 const Login = () => {
   const {
     isVisible,
-    toogleVisibility,
+    toggleVisibility,
     control,
     handleSubmit,
     handleLogin,
     isPendingLogin,
     errors,
   } = useLogin();
-
   return (
     <div className="flex w-full flex-col items-center justify-center gap-10 lg:flex-row lg:gap-20">
       <div className="flex w-full flex-col items-center justify-center gap-10 lg:w-1/3">
@@ -89,7 +88,7 @@ const Login = () => {
                     <button
                       className="focus:outline-none"
                       type="button"
-                      onClick={toogleVisibility}
+                      onClick={toggleVisibility}
                     >
                       {isVisible ? (
                         <FaEye className="pointer-events-none text-xl text-default-400" />

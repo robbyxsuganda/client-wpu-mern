@@ -44,7 +44,7 @@ const useDetailCategory = () => {
       refetchCategory();
       setToaster({
         type: "success",
-        message: "Success Update Categoty",
+        message: "Success update category",
       });
     },
   });
@@ -53,7 +53,6 @@ const useDetailCategory = () => {
 
   return {
     dataCategory,
-
     handleUpdateCategory,
     isPendingMutateUpdateCategory,
     isSuccessMutateUpdateCategory,

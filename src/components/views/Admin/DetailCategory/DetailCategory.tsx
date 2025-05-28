@@ -1,4 +1,4 @@
-import { Tab, Tabs } from "@nextui-org/react";
+import { Tab, Tabs } from "@heroui/react";
 import IconTab from "./IconTab";
 import InfoTab from "./InfoTab";
 import useDetailCategory from "./useDetailCategory";
@@ -6,14 +6,13 @@ import useDetailCategory from "./useDetailCategory";
 const DetailCategory = () => {
   const {
     dataCategory,
-
     handleUpdateCategory,
     isPendingMutateUpdateCategory,
     isSuccessMutateUpdateCategory,
   } = useDetailCategory();
   return (
     <Tabs aria-label="Options">
-      <Tab key={"icon"} title="Icon">
+      <Tab key="icon" title="Icon">
         <IconTab
           currentIcon={dataCategory?.icon}
           onUpdate={handleUpdateCategory}
@@ -21,7 +20,7 @@ const DetailCategory = () => {
           isSuccessUpdate={isSuccessMutateUpdateCategory}
         />
       </Tab>
-      <Tab key={"info"} title="Info">
+      <Tab key="info" title="Info">
         <InfoTab
           dataCategory={dataCategory}
           onUpdate={handleUpdateCategory}

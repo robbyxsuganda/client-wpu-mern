@@ -17,11 +17,10 @@ const schema = yup.object().shape({
 const useAddCategoryModal = () => {
   const { setToaster } = useContext(ToasterContext);
   const {
-    isPendingMutateUploadFile,
-    isPendingMutateDeleteFile,
-
-    handleDeleteFile,
     handleUploadFile,
+    isPendingMutateUploadFile,
+    handleDeleteFile,
+    isPendingMutateDeleteFile,
   } = useMediaHandling();
 
   const {
@@ -37,7 +36,6 @@ const useAddCategoryModal = () => {
   });
 
   const preview = watch("icon");
-
   const fileUrl = getValues("icon");
 
   const handleUploadIcon = (
@@ -84,7 +82,7 @@ const useAddCategoryModal = () => {
     onSuccess: () => {
       setToaster({
         type: "success",
-        message: "Success Add Category",
+        message: "Success add category",
       });
       reset();
     },
@@ -103,10 +101,10 @@ const useAddCategoryModal = () => {
 
     preview,
     handleUploadIcon,
-    handleDeleteIcon,
-    handleOnClose,
     isPendingMutateUploadFile,
+    handleDeleteIcon,
     isPendingMutateDeleteFile,
+    handleOnClose,
   };
 };
 
